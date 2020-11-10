@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginWallpaper"
+    android:background="@drawable/nature"
     tools:context=".AddUserActivity">
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/avatarphoto">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Name" />
+                android:text="Name"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -37,7 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingHorizontal="8dp"
-                android:text="My Full Name" />
+                android:text="My Full Name"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,7 +54,8 @@
                 android:layout_width="123dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Email                 " />
+                android:text="Email                 "
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -59,7 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingHorizontal="8dp"
-                android:text="myemail12345@gmail.com" />
+                android:text="myemail12345@gmail.com"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,10 +81,11 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Username" />
+                android:text="Username"
+                android:textColor="#7B7B77" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Enter Username Here"
@@ -90,7 +97,7 @@
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
+        android:id="@+id/avatarphoto"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="32dp"
@@ -104,8 +111,8 @@
         android:layout_width="25dp"
         android:layout_height="28dp"
         android:background="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/avatarphoto"
+        app:layout_constraintEnd_toEndOf="@+id/avatarphoto"
         app:srcCompat="@drawable/ic_baseline_edit_24" />
 
     <Button
@@ -123,6 +130,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
+        android:id="@+id/loading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -131,6 +139,7 @@
         android:orientation="horizontal"
         android:paddingHorizontal="10sp"
         android:paddingVertical="10sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +158,30 @@
             android:layout_marginHorizontal="10sp"
             android:layout_marginVertical="8sp"
             android:text="Loading........"
+            android:textColor="#7B7B77"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="By Clicking JOIN below, you are agreeing to our"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/join"
+        app:layout_constraintEnd_toEndOf="@+id/join"
+        app:layout_constraintStart_toStartOf="@+id/join" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terms and Conditions"
+        android:textColor="#0091EA"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/join"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

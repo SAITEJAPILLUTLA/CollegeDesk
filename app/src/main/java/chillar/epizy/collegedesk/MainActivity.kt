@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         btngoolgesignin.setOnClickListener {
             createRequest()
             signIn()
-            validate.visibility=View.VISIBLE
+
         }
     }
     private fun signIn() {
@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                validate.visibility=View.VISIBLE
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun createRequest() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("601325558172-1eosuhik4evdjk45it3qasm5qmkj9qhb.apps.googleusercontent.com")
+            .requestIdToken("601325558172-17voqgp7d1u1g0rn9k6a88silo97672u.apps.googleusercontent.com")
             .requestEmail()
             .build()
         // Build a GoogleSignInClient with the options specified by gso.

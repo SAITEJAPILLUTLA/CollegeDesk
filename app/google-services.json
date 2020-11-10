@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "601325558172-1eosuhik4evdjk45it3qasm5qmkj9qhb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "chillar.epizy.collegedesk",
-            "certificate_hash": "2bd5a1181f0b14cd09e27ac3d19c9b55c804f694"
-          }
-        },
-        {
           "client_id": "601325558172-17voqgp7d1u1g0rn9k6a88silo97672u.apps.googleusercontent.com",
           "client_type": 3
         }
