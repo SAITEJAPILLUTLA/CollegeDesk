@@ -1,30 +1,29 @@
 package chillar.epizy.collegedesk
 
-//import com.google.firebase.storage.FirebaseStorage
 import android.Manifest
+import android.app.ActivityOptions
+import android.content.Intent
 import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import chillar.epizy.collegedesk.fragments.chatFragment
-import chillar.epizy.collegedesk.fragments.feedFragment
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
-@Suppress("DEPRECATED_IDENTITY_EQUALS")
-class HomeActivity : AppCompatActivity() {
-    val TAG ="HomeActivity"
+import androidx.core.view.isVisible
+import kotlinx.android.synthetic.main.activity_permissions_avtivity.*
+
+class permissionsAvtivity : AppCompatActivity() {
+    val TAG="TAG"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        setUpTabs()
-        floatingActionButton.setOnClickListener {
+        setContentView(R.layout.activity_permissions_avtivity)
+        button.setOnClickListener {
             requestPermissions()
-            }
+        }
+
     }
+
     fun requestPermissions(){
 
         //Check Storage Permissions
@@ -35,7 +34,9 @@ class HomeActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.MANAGE_EXTERNAL_STORAGE), 1);
         }else{
-            Log.d(TAG,"Permissions are granted")
+            Log.d(TAG,"Storage Permissions are granted")
+            progressBar2.visibility= View.GONE
+            imageView.visibility=View.VISIBLE
         }
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) !==
@@ -53,16 +54,9 @@ class HomeActivity : AppCompatActivity() {
         }else{
             Log.d(TAG,"Permissions are granted")
         }
+
+        val intent= Intent(this,HomeActivity::class.java)
+        startActivity(intent,ActivityOptions.makeCustomAnimation(this,R.anim.slide_in_left,R.anim.slide_in_right).toBundle())
     }
-    private fun setUpTabs(){
-        CoroutineScope(newSingleThreadContext("adding TABS")).launch {
-            val adapter = viewPagerAdapter(supportFragmentManager)
-            adapter.addFragment(chatFragment(),"")
-            adapter.addFragment(feedFragment(),"")
-            viewPager.adapter=adapter
-            tabs.setupWithViewPager(viewPager)
-            tabs.getTabAt(0)!!.setIcon(R.drawable.chat)
-            tabs.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_dynamic_feed_24)
-        }
-    }
+
 }

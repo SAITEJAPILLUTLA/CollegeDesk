@@ -20,10 +20,12 @@ class chatFragment: Fragment()  {
         super.onCreate(savedInstanceState)
         var context: Context? = getContext()
 
+
+
     }
     override fun onStart() {
         super.onStart()
-        fragment_chat_recycler.setAdapter(adapter)
+        fragment_feed_recycler.setAdapter(adapter)
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
