@@ -1,8 +1,8 @@
 package chillar.epizy.collegedesk
 
-import android.Manifest
+import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -11,17 +11,20 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_add_user.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.StringBuilder
+import java.security.AccessController.getContext
 import java.util.*
 
 
@@ -62,10 +65,7 @@ class AddUserActivity : AppCompatActivity() {
             }catch (e : Exception){
                 saveUserToFirebase("")
             }
-
-
         }
-
     }
     override  fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -82,10 +82,9 @@ class AddUserActivity : AppCompatActivity() {
             avatarphoto.setImageBitmap(bitmap)
         } else if (resultCode == UCrop.RESULT_ERROR) {
             var error  = data?.let { UCrop.getError(it) };
+            Log.d(TAG,"error in croping :: ${error}")
         }
-
     }
-
     private fun launchCrop(suri: Uri) {
         var durii=StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString()
         var image=File.createTempFile("cacheDir.toString()",durii)
@@ -96,7 +95,6 @@ class AddUserActivity : AppCompatActivity() {
             .withMaxResultSize(880  , 880)
             .start(this);
     }
-
     private fun uploadavatar(finalbitmap: Bitmap){
         textView6.text="Uploading Profile Image...."
         var filename= FirebaseAuth.getInstance().uid.toString()
@@ -115,9 +113,11 @@ class AddUserActivity : AppCompatActivity() {
             }
     }
     private fun saveUserToFirebase(url:String){
+        val context =baseContext
+        CoroutineScope(newSingleThreadContext("uploadtoFirebase")).launch {
         textView6.text="Creating Account..."
         val uid= FirebaseAuth.getInstance().uid?:""
-        var signinAccount= GoogleSignIn.getLastSignedInAccount(this)
+        var signinAccount= GoogleSignIn.getLastSignedInAccount(context)
         var name= signinAccount?.displayName.toString()
         var email= signinAccount?.email.toString()
         var profileImageUrl:String="https://firebasestorage.googleapis.com/v0/b/carpool-1ec9c.appspot.com/o/images%2F7adf0706-5378-4e35-88e9-83578d0d8523?alt=media&token=25bd6495-dadf-4872-a501-ed84ad37a8f9"
@@ -135,6 +135,7 @@ class AddUserActivity : AppCompatActivity() {
                 Log.d("Profile","user Saved to Firebasee")
                 //llProgressBar.visibility = View.GONE
                 Toast.makeText(baseContext, "Updated :)", Toast.LENGTH_SHORT).show()
+                saveUsertolocalDB(user)
             }
         textView6.text="Finishing Up..."
         Authref.setValue(user)
@@ -144,6 +145,19 @@ class AddUserActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "Updated :)", Toast.LENGTH_SHORT).show()
                 loading.visibility=View.GONE
 
+                val intent= Intent(context,permissionsAvtivity::class.java)
+                startActivity(intent,
+                    ActivityOptions.makeCustomAnimation(context,R.anim.slide_in_left,R.anim.slide_in_right).toBundle())
+
             }
+    }}
+    fun saveUsertolocalDB(user: User) {
+        CoroutineScope(Dispatchers.IO).launch {
+            var context: Context? = baseContext
+
+            var db = context?.let { dbhandler(it) }
+            db?.insertUser(user)
+        }
+
     }
 }

@@ -21,9 +21,7 @@ class permissionsAvtivity : AppCompatActivity() {
         button.setOnClickListener {
             requestPermissions()
         }
-
     }
-
     fun requestPermissions(){
 
         //Check Storage Permissions
@@ -54,9 +52,9 @@ class permissionsAvtivity : AppCompatActivity() {
         }else{
             Log.d(TAG,"Permissions are granted")
         }
-
         val intent= Intent(this,HomeActivity::class.java)
         startActivity(intent,ActivityOptions.makeCustomAnimation(this,R.anim.slide_in_left,R.anim.slide_in_right).toBundle())
+
     }
 
 }

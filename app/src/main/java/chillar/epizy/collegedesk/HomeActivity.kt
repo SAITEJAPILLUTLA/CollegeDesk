@@ -2,6 +2,8 @@ package chillar.epizy.collegedesk
 
 //import com.google.firebase.storage.FirebaseStorage
 import android.Manifest
+import android.app.ActivityOptions
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -21,9 +23,14 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setUpTabs()
-        floatingActionButton.setOnClickListener {
+        add.setOnClickListener {
             requestPermissions()
             }
+        profile.setOnClickListener {
+            val intent= Intent(this,HomeActivity::class.java)
+            startActivity(intent,
+                ActivityOptions.makeCustomAnimation(this,R.anim.bounce,R.anim.bounce).toBundle())
+        }
     }
     fun requestPermissions(){
 
