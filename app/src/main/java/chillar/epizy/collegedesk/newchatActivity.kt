@@ -1,5 +1,6 @@
 package chillar.epizy.collegedesk
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -78,7 +79,9 @@ class newchatActivity : AppCompatActivity() {
                             if (!(user.uid).equals(currentUser))
                                 adapter.add(user)
                             adapter.setOnItemClickListener { item, view ->
-
+                                var context: Context? = baseContext
+                                var db = context?.let { dbhandler(it) }
+                                var data = db?.insertsearchUser(user)
 
                             }
 

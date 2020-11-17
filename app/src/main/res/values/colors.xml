@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#37A9B5</color>
+    <color name="colorAccent">#4b6068</color>
+    <color name="textcolor"  >	#4b6068</color>
+
+
+    <color name="ucrop_color_toolbar">#b3dbaa</color>
+    <color name="ucrop_color_statusbar">#c4ecea</color>
+    <color name="ucrop_color_widget_active">#852852</color>
+
+
+</resources>
